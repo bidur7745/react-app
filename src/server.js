@@ -45,30 +45,22 @@ try {
 }
 })
 
-app.get("/api/favorites/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
 
-    const userFavorites = await db
+app.get("/api/favorites/:userID", async (req, res) => {
+  try {
+    const { userID } = req.params;
+
+    const favorites = await db
       .select()
       .from(favoritesTable)
-      .where(eq(favoritesTable.userId, userId));
+      .where(eq(favoritesTable.userID, userID));
 
-    res.status(200).json(userFavorites);
+    res.status(200).json(favorites);
   } catch (error) {
-    console.log("Error fetching the favorites", error);
+    console.error("Error fetching the favorites", error);
     res.status(500).json({ error: "Something went wrong" });
   }
 });
-
-
-
-
-
-
-
-
-
 
 
 
